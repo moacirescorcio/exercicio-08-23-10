@@ -56,6 +56,30 @@ class Professor extends Funcionario{
     }
 }
 
+class FolhaDePagamento{
+    pessoas: Pessoa[] = []
+
+    public inserir(p: Pessoa){
+        this.pessoas.push(p)
+        console.log("Inserido!");
+        
+    }
+    
+    calcularPagamentos(): number{
+        let somatorio_salarios: number = 0
+        for(let item of this.pessoas){
+            if(item instanceof Funcionario || item instanceof Professor){
+                somatorio_salarios += item.calcularSalarioPrimeiraParcela() + item.calcularSalarioSegundaParcela()
+            }
+        }
+        return somatorio_salarios;
+    }
+}
+
+//folha de pagamento
+let FolhaDePagamento1: FolhaDePagamento = new FolhaDePagamento()
+
+
 let pessoa1: Pessoa = new Pessoa('Moacir', 'Escórcio');
 console.log(pessoa1.nome_completo);
 
@@ -70,6 +94,12 @@ let professor1: Professor = new Professor('Maria', 'Clara', "002", 2000, "Metre"
 console.log(`\nNome do Professor: ${professor1.nome_completo}`);
 console.log(`Primeira parcela do salário: R$${professor1.calcularSalarioPrimeiraParcela()}`);
 console.log(`Segunda parcela do salário: ${professor1.calcularSalarioSegundaParcela()}`);
+
+//inserindo no array
+FolhaDePagamento1.inserir(pessoa1)
+FolhaDePagamento1.inserir(funcionario_1)
+FolhaDePagamento1.inserir(professor1)
+console.log(`O total dos salários é de R$${FolhaDePagamento1.calcularPagamentos()}`);
 
 
 
